@@ -1,0 +1,108 @@
+version: '3.8'
+
+networks:
+  deploy-guide:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - deploy-guide
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: roomly
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3.10.7-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    restart: always
+    networks:
+      - deploy-guide
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+    
+  user-service:
+    image: user-service
+    container_name: user-service
+    build:
+      context: .
+      dockerfile: Web/Roomly.Users/Dockerfile
+    ports:
+      - "7001:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    networks:
+      - deploy-guide
+    depends_on:
+      - postgres
+    command: [ "dotnet", "ef", "database update" ]
+    
+  room-service:
+    image: room-service
+    container_name: room-service
+    build:
+      context: .
+      dockerfile: Web/Roomly.Rooms/Dockerfile
+    ports:
+      - "7002:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    networks:
+      - deploy-guide
+    depends_on:
+      - postgres
+      - rabbitmq
+    command: [ "dotnet", "ef", "database update" ]
+    
+  booking-service:
+    image: booking-service
+    container_name: booking-service
+    build:
+      context: .
+      dockerfile: Web/Roomly.Booking/Dockerfile
+    ports:
+      - "7003:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    networks:
+      - deploy-guide
+    depends_on:
+      - postgres
+      - rabbitmq
+    command: [ "dotnet", "ef", "database update" ]
+    
+  api-gateway:
+    image: api-gateway
+    container_name: api-gateway
+    build:
+      context: .
+      dockerfile: Web/Roomly.ApiGateway/Dockerfile
+    ports:
+      - "7000:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://+:8080"
+    networks:
+      - deploy-guide
+    depends_on:
+      - user-service
+      - room-service
+      - booking-service
+ 
+volumes:
+  pg_data:

@@ -1,73 +1,43 @@
-# 🌍 Environmental Monitoring System – Dnipropetrovsk Region
+🏢 Online Booking Platform for Coworking Spaces
+A web-based platform for booking meeting rooms and workspaces in coworking environments. Users can view available rooms, select a time slot, and make a reservation through convenient slots.
 
-A web-based platform for monitoring environmental pollution, managing industrial facility data, and calculating ecological damage across the Dnipropetrovsk region. Designed for professionals and institutions involved in environmental analysis and regulation.
+🚀 Features
+✅ Interactive booking system with real-time availability checks
+✅ User authentication and session management
+✅ Filtering and searching for meeting rooms
+✅ Calendar-based slot selection
+✅ Booking management (view, edit, cancel)
+✅ Responsive design for desktop and mobile
 
----
-
-## 🚀 Features
-
-- ✅ Add, edit, and delete industrial facilities and pollutant types  
-- ✅ Submit annual pollution reports with detailed data  
-- ✅ Dynamic data table with inline editing and deletion  
-- ✅ Risk assessment for carcinogenic and non-carcinogenic exposure  
-- ✅ Calculate environmental damage for regular and emergency scenarios  
-- ✅ Search and filter reports by facility or pollutant  
-- ✅ Informational "About" section with regional context  
-- ✅ Responsive layout for desktop and mobile devices
-
----
-
-## 🛠️ Technologies
-
-- **React + TypeScript** – UI development and component structure  
-- **CSS + Bootstrap** – Responsive and styled UI elements  
-- **React Router** – SPA navigation  
-- **Fetch API** – Backend API integration  
-- **Modular architecture** – Reusable and organized components  
-
----
-
-## 📥 Installation
-
- ```bash
-git clone [your_repo_url]
-cd [project-folder]
-docker compose up
-cd ./client
+🛠️ Technologies Used
+React + TypeScript – Frontend framework for UI development
+SCSS – Styling with modular and reusable stylesheets
+React Router – Navigation and page management
+Redux – State management for user sessions and bookings
+Fetch – Handling API requests to backend services
+JWT – Authentication and session management
+Bulma – CSS framework for styling
+📥 Installation & Local Setup
+Clone the repository:
+git clone [https://github.com/artuom2283/Roomly_app.git]
+Start Docker in the root directory:
+docker-compose up
+Install dependencies:
 npm install
-npm start
- ```
+Start the development server:
+npm run dev
+Open the app in your browser: http://localhost:3000
+🎮 How to Use?
+Sign up and log in to access the booking system.
+Browse available rooms and filter by type, capacity, and location.
+Select a room and choose a time slot using the calendar.
+Confirm your booking and view it in the "My Bookings" section.
+Cancel or modify your booking if needed.
+📄 License
+This project is open-source and available under the MIT License.
 
-## 🌐 Visit in Browser
+🤝 Contributing
+Contributions are welcome! Feel free to submit issues or pull requests.
 
-[http://localhost:3000](http://localhost:3000)
-
----
-
-## 🎮 How to Use
-
-1. Navigate to the **Data Management** section  
-2. Add **facilities** and **pollutants**  
-3. Submit **pollution reports** with emissions data, volume, and tax details  
-4. **View**, **edit**, or **delete** records in the dynamic table  
-5. Use the **Calculation** tab to assess **risks** or calculate **damage**
-
----
-
-## 📄 License
-
-This project is open-source and available under the **MIT License**
-
----
-
-## 🤝 Contributing
-
-Pull requests, issues, and suggestions are welcome.  
-Your contributions help improve environmental monitoring!
-
----
-
-## 📧 Contact
-
-For questions or support:  
-📬 [fr.puzenko.artem@gmail.com]
+📧 Contact
+For any inquiries, reach out at [fr.puzenko.artem@gmail.com].
